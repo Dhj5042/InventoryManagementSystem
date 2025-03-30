@@ -74,9 +74,7 @@ Content-Type: application/json
  
   "Name": "Red Bull Blueberry 8.4oz",
   "Category": "Energy Drinks",
-  "Price": {
-    "$numberDecimal": "100"
-  },
+  "Price": 100,
   "Quantity": 10
 }
 ```
