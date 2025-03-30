@@ -38,6 +38,7 @@ namespace InventoryManagementSystem.Api.Repository.Repository
         {
             var product = new Product
             {
+                Id = id,
                 Name = request.Name,
                 Category = request.Category,
                 Price = request.Price,
