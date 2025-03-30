@@ -3,6 +3,8 @@ using System.Reflection;
 using InventoryManagementSystem.Api.Utility;
 using InventoryManagementSystem.Api.Services.Attributes;
 using InventoryManagementSystem.Api.Database;
+using FluentValidation;
+using InventoryManagementSystem.API.Validator;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,10 @@ builder.Services.Configure<DBContext>(
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 builder.Services.AddEndpointsApiExplorer();
+#endregion
+
+#region FluentValidation
+builder.Services.AddValidatorsFromAssemblies(new[] { typeof(ProductValidator).Assembly }, ServiceLifetime.Singleton);
 #endregion
 
 #region Dependency Injection            

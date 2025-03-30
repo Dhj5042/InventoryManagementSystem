@@ -1,15 +1,17 @@
-﻿using InventoryManagementSystem.Api.Database.Models;
+﻿using FluentValidation;
+using InventoryManagementSystem.Api.Database.Models;
 using InventoryManagementSystem.Api.DTO;
 using InventoryManagementSystem.Api.DTO.Constants;
 using InventoryManagementSystem.Api.DTO.Request;
 using InventoryManagementSystem.Api.Services.IServices;
+using InventoryManagementSystem.API.Extension;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryManagementSystem.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController(IProductService productService) : ControllerBase
+    public class ProductController(IProductService productService,IValidator<ProductRequest> productValidator) : ControllerBase
     {
 
 
@@ -31,6 +33,12 @@ namespace InventoryManagementSystem.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProductRequest request)
         {
+            var validateResult = await productValidator.ValidateAsync(request);
+            if (!validateResult.IsValid)
+            {
+                var validationErrors = ValidationFailedResponseMapper.MapToValidationError(validateResult);
+                return StatusCode(StatusCodes.Status400BadRequest, new BaseResponse<string> { StatusCode = StatusCodes.Status400BadRequest, Message = Constants.ValidationFailMessage, Errors = validationErrors });
+            }
             var result = await productService.CreateAsync(request);
             return StatusCode(StatusCodes.Status201Created, new BaseResponse<CreateResponse> { Result = result, Message = string.Format(Constants.CreateSuccess, "Product") });
         }
@@ -38,6 +46,12 @@ namespace InventoryManagementSystem.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(string id, ProductRequest request)
         {
+            var validateResult = await productValidator.ValidateAsync(request);
+            if (!validateResult.IsValid)
+            {
+                var validationErrors = ValidationFailedResponseMapper.MapToValidationError(validateResult);
+                return StatusCode(StatusCodes.Status400BadRequest, new BaseResponse<string> { StatusCode = StatusCodes.Status400BadRequest, Message = Constants.ValidationFailMessage, Errors = validationErrors });
+            }
             var existingProduct = await productService.ValidateProductId(id);
             if (existingProduct == null)
                 return StatusCode(StatusCodes.Status400BadRequest, new BaseResponse<string> { Message = Constants.ValidationFailMessage, Errors = existingProduct.Errors });
