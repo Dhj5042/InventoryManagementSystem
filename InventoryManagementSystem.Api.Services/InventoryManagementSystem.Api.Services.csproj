@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\InventoryManagementSystem.Api.DTO\InventoryManagementSystem.Api.DTO.csproj" />
+    <ProjectReference Include="..\InventoryManagementSystem.Api.Repository\InventoryManagementSystem.Api.Repository.csproj" />
+    <ProjectReference Include="..\InventoryManagementSystem.Api.Utility\InventoryManagementSystem.Api.Utility.csproj" />
+  </ItemGroup>
+
+</Project>
