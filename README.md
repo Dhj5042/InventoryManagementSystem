@@ -11,7 +11,7 @@ The **Inventory Management System API** is a RESTful service built with **.NET C
 - Built using **.NET Core Web API**.
 
 ## Tech Stack
-- **Backend:** .NET Core 7+
+- **Backend:** .NET Core 8
 - **Database:** MongoDB
 - **Architecture:** Clean Architecture, Repository Pattern
 
@@ -71,7 +71,13 @@ POST /api/product
 Content-Type: application/json
 
 {
-    "name": "Laptop"
+ 
+  "Name": "Red Bull Blueberry 8.4oz",
+  "Category": "Energy Drinks",
+  "Price": {
+    "$numberDecimal": "100"
+  },
+  "Quantity": 10
 }
 ```
 
@@ -79,8 +85,8 @@ Content-Type: application/json
 ```json
 {
     "result": {
-        "id": "e5c0d8e9-2afc-47f1-9d49-3eb623a5f23e",
-        "name": "Laptop"
+        "id": "67e963580d507f64fe175c9c",
+        "name": "Red Bull Blueberry 8.4oz"
     },
     "status": "Success",
     "statusCode": 201,
